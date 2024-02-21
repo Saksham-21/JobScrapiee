@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>JobsScrappie</title>
+        
+        <!-- CSS FILES -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;300;400;600;700&display=swap" rel="stylesheet">
+
+        <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="static/css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="static/css/owl.carousel.min.css" rel="stylesheet">
+
+        <link href="static/css/owl.theme.default.min.css" rel="stylesheet">
+
+        <link href="static/css/tooplate-gotto-job.css" rel="stylesheet">
+        <link rel="icon" type="image/x-icon" href="../static/images/favi.png">
+    </head>
+ 
+    <body id="top">
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="../static/images/Logo.png" id="adjustment3" class="img-fluid logo-image">
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav align-items-center ms-lg-5">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{url_for('index')}}">Homepage</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('joblist')}}">Job Listings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{url_for('contact')}}">Contact</a>
+                        </li>
+                        {% if session.loggedin %}
+                        <li class="nav-item ms-lg-auto">
+                            <a class="nav-link custom-btn">Welcome {{ session.name }}</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+
+            <section class="hero-section d-flex justify-content-center align-items-center">
+                <div class="section-overlay"></div>
+
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-6 col-12 mb-5 mb-lg-0">
+                            <div class="hero-section-text mt-5">
+                                <h6 class="text-white">Are you looking for your dream job?</h6>
+
+                                <h1 class="hero-title text-white mt-4 mb-4">Online Platform. <br> Best Job portal</h1>
+
+                                <a href="#categories-section" class="custom-btn custom-border-btn btn">Browse Categories</a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-12">
+                            <form class="custom-form hero-form" action="/display_result" method="post" role="form">
+                                <h3 class="text-white mb-3">Search your dream job</h3>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon1"><i class="bi-person custom-icon"></i></span>
+
+                                            <input type="text" name="job-title" id="job-title" class="form-control" placeholder="Job Title" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text" id="basic-addon2"><i class="bi-geo-alt custom-icon"></i></span>
+
+                                            <input type="text" name="job-location" id="job-location" class="form-control" placeholder="Location" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 col-12">
+                                        <button type="submit" class="form-control">
+                                            Find a job
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="categories-section section-padding" id="categories-section">
+            </section>
+
+
+            <section class="about-section">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-3 col-12">
+                            <div class="about-image-wrap custom-border-radius-start">
+                                <img src="../static/images/1.jpg" class="about-image custom-border-radius-start img-fluid" alt="">
+
+                                
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-12">
+                            <div class="custom-text-block">
+                                <h2 class="text-white mb-2">Introduction</h2>
+
+                                <p class="text-white">Unlock a world of career opportunities with JobsScrappie – your all-in-one job search solution. Find, apply, and succeed effortlessly.</p>
+
+                                <div class="custom-border-btn-wrap d-flex align-items-center mt-5">
+                                    <a href="" class="custom-btn custom-border-btn btn me-4">Get to know us</a>
+
+                                    <a href="" class="custom-link smoothscroll">Explore Jobs</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-12">
+                            <div class="instagram-block">
+                                <img src="../static/images/horizontal-shot-happy-mixed-race-females.jpg" class="about-image custom-border-radius-end img-fluid" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="job-section recent-jobs-section section-padding">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-lg-6 col-12 mb-4">
+                            <h2>Recent Jobs</h2>
+
+                            <p><strong>Over 10k opening jobs</strong></p>
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="job-thumb job-thumb-box">
+                                <div class="job-image-box-wrap">
+                                    <a href="">
+                                        <img src="../static/images/jobs/it-professional-works-startup-project.jpg" class="job-image img-fluid" alt="">
+                                    </a>
+                                    <div class="job-image-box-wrap-info d-flex align-items-center">
+                                        <p class="mb-0">
+                                            <a href="" class="badge badge-level">Internship</a>
+                                        </p>
+                                        <p class="mb-0">
+                                            <a href="" class="badge">Freelance</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="job-body">
+                                    <h4 class="job-title">
+                                        <a href="" class="job-title-link">Technical Lead</a>
+                                    </h4>
+                                    <div class="d-flex align-items-center">
+                                        <div class="job-image-wrap d-flex align-items-center bg-white shadow-lg mt-2 mb-4">
+                                            <img src="../static/images/logos/salesforce.png" class="job-image me-3 img-fluid" alt="">
+                                            <p class="mb-0">Salesforce</p>
+                                        </div>
+
+                                        <a href="" class="bi-bookmark ms-auto me-2">
+                                        </a>
+
+                                        <a href="" class="bi-heart">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="job-thumb job-thumb-box">
+                                <div class="job-image-box-wrap">
+                                    <a href="">
+                                        <img src="../static/images/jobs/marketing-assistant.jpg" class="job-image img-fluid" alt="marketing assistant">
+                                    </a>
+
+                                    <div class="job-image-box-wrap-info d-flex align-items-center">
+                                        <p class="mb-0">
+                                            <a href="" class="badge badge-level">Senior</a>
+                                        </p>
+
+                                        <p class="mb-0">
+                                            <a href="" class="badge">Part Time</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="job-body">
+                                    <h4 class="job-title">
+                                        <a href="" class="job-title-link">Marketing Assistant</a>
+                                    </h4>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="job-image-wrap d-flex align-items-center bg-white shadow-lg mt-2 mb-4">
+                                            <img src="../static/images/logos/spotify.png" class="job-image me-3 img-fluid" alt="">
+
+                                            <p class="mb-0">Spotify</p>
+                                        </div>
+
+                                        <a href="" class="bi-bookmark ms-auto me-2">
+                                        </a>
+
+                                        <a href="" class="bi-heart">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="job-thumb job-thumb-box">
+                                <div class="job-image-box-wrap">
+                                    <a href="">
+                                        <img src="../static/images/jobs/coding-man.jpg" class="job-image img-fluid" alt="">
+                                    </a>
+
+                                    <div class="job-image-box-wrap-info d-flex align-items-center">
+                                        <p class="mb-0">
+                                            <a href="" class="badge badge-level">Junior</a>
+                                        </p>
+
+                                        <p class="mb-0">
+                                            <a href="" class="badge">Contract</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="job-body">
+                                    <h4 class="job-title">
+                                        <a href="" class="job-title-link">Programmer</a>
+                                    </h4>
+                                        
+                                    <div class="d-flex align-items-center">
+                                        <div class="job-image-wrap d-flex align-items-center bg-white shadow-lg mt-2 mb-4">
+                                            <img src="../static/images/logos/twitter.png" class="job-image me-3 img-fluid" alt="">
+
+                                            <p class="mb-0">Twiter</p>
+                                        </div>
+
+                                        <a href="" class="bi-bookmark ms-auto me-2">
+                                        </a>
+
+                                        <a href="" class="bi-heart">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="job-thumb job-thumb-box">
+                                <div class="job-image-box-wrap">
+                                    <a href="">
+                                        <img src="../static/images/jobs/pretty-blogger-posing-cozy-apartment.jpg" class="job-image img-fluid" alt="">
+                                    </a>
+
+                                    <div class="job-image-box-wrap-info d-flex align-items-center">
+                                        <p class="mb-0">
+                                            <a href="" class="badge badge-level">Junior</a>
+                                        </p>
+
+                                        <p class="mb-0">
+                                            <a href="" class="badge">Contract</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="job-body">
+                                    <h4 class="job-title">
+                                        <a href="" class="job-title-link">HR Manager</a>
+                                    </h4>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="job-image-wrap d-flex align-items-center bg-white shadow-lg mt-2 mb-4">
+                                            <img src="../static/images/logos/yelp.png" class="job-image me-3 img-fluid" alt="">
+
+                                            <p class="mb-0">Yelp</p>
+                                        </div>
+
+                                        <a href="" class="bi-bookmark ms-auto me-2">
+                                        </a>
+
+                                        <a href="" class="bi-heart">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="job-thumb job-thumb-box">
+                                <div class="job-image-box-wrap">
+                                    <a href="">
+                                        <img src="../static/images/jobs/paper-analysis.jpg" class="job-image img-fluid" alt="">
+                                    </a>
+
+                                    <div class="job-image-box-wrap-info d-flex align-items-center">
+                                        <p class="mb-0">
+                                            <a href="" class="badge badge-level">Junior</a>
+                                        </p>
+
+                                        <p class="mb-0">
+                                            <a href="" class="badge">Contract</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="job-body">
+                                    <h4 class="job-title">
+                                        <a href="" class="job-title-link">Sales Representative</a>
+                                    </h4>
+                                        
+                                    <div class="d-flex align-items-center">
+                                        <div class="job-image-wrap d-flex align-items-center bg-white shadow-lg mt-2 mb-4">
+                                            <img src="../static/images/logos/paypal.png" class="job-image me-3 img-fluid" alt="">
+
+                                            <p class="mb-0">Paypal</p>
+                                        </div>
+
+                                        <a href="" class="bi-bookmark ms-auto me-2">
+                                        </a>
+
+                                        <a href="" class="bi-heart">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="job-thumb job-thumb-box">
+                                <div class="job-image-box-wrap">
+                                    <a href="">
+                                        <img src="../static/images/jobs/logo-designer-working-computer-desktop.jpg" class="job-image img-fluid" alt="">
+                                    </a>
+
+                                    <div class="job-image-box-wrap-info d-flex align-items-center">
+                                        <p class="mb-0">
+                                            <a href="" class="badge badge-level">Mid Level</a>
+                                        </p>
+
+                                        <p class="mb-0">
+                                            <a href="" class="badge">Full Time</a>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="job-body">
+                                    <h4 class="job-title">
+                                        <a href="" class="job-title-link">Graphic Designer</a>
+                                    </h4>
+                                        
+                                    <div class="d-flex align-items-center">
+                                        <div class="job-image-wrap d-flex align-items-center bg-white shadow-lg mt-2 mb-4">
+                                            <img src="../static/images/logos/envato.png" class="job-image me-3 img-fluid" alt="">
+
+                                            <p class="mb-0">Envato</p>
+                                        </div>
+
+                                        <a href="" class="bi-bookmark ms-auto me-2">
+                                        </a>
+
+                                        <a href="" class="bi-heart">
+                                        </a>
+                                    </div>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <div class="site-footer-bottom">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-4 col-12 d-flex align-items-center">
+                            <p class="copyright-text">Copyright © JobScrapiee 2023</p>
+                            <ul class="footer-menu d-flex">
+                                <li class="footer-menu-item"><a href="" class="footer-menu-link">Privacy Policy</a></li>
+
+                                <li class="footer-menu-item"><a href="" class="footer-menu-link">Terms</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-5 col-12 mt-2 mt-lg-0">
+                            <ul class="social-icon">
+                                <li class="social-icon-item">
+                                    <a href="" class="social-icon-link bi-twitter"></a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="" class="social-icon-link bi-facebook"></a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="" class="social-icon-link bi-linkedin"></a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="" class="social-icon-link bi-instagram"></a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="" class="social-icon-link bi-youtube"></a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <a class="back-top-icon bi-arrow-up smoothscroll d-flex justify-content-center align-items-center" href="#top"></a>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="../static/js/jquery.min.js"></script>
+        <script src="../static/js/bootstrap.min.js"></script>
+        <script src="../static/js/owl.carousel.min.js"></script>
+        <script src="../static/js/counter.js"></script>
+        <script src="../static/js/custom.js"></script>
+    </body>
+</html>
