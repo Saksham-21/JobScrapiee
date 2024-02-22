@@ -1,8 +1,7 @@
 from flask import Flask, render_template, request,url_for,session,redirect,Response,send_file
-# from io import StringIO,BytesIO
-# from flask_mysqldb import MySQL
-# import MySQLdb.cursors
 from dotenv import load_dotenv
+import firebase_admin
+from firebase_admin import credentials, firestore
 import os
 import re
 import csv
@@ -11,36 +10,6 @@ app = Flask(__name__)
 load_dotenv()
 
 app.secret_key='abcxyz'
-# app.config['MYSQL_HOST']='localhost'
-# app.config['MYSQL_USER']='root'
-# app.config['MYSQL_PASSWORD']='Saksham_21'
-# app.config['MYSQL_DB']='test'
-# mysql=MySQL(app)
-     
-  
-    
-# @app.route('/')
-# @app.route('/login', methods=['POST','GET'])
-# def login():
-#     mesage = ''
-#     if request.method == 'POST' and 'email' in request.form and 'password' in request.form:
-#         email = request.form['email']
-#         password = request.form['password']
-#         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-#         cursor.execute('SELECT * FROM user WHERE email = % s AND password = % s', (email, password, ))
-#         user = cursor.fetchone()
-#         if user:
-#             session['loggedin'] = True
-#             session['name'] = user['name']
-#             session['email'] = user['email']
-#             return redirect(url_for('index'))
-#         else:
-#             mesage = 'Please enter correct email / password !'
-#     return render_template('Login.html', mesage=mesage)
-
-
-import firebase_admin
-from firebase_admin import credentials, firestore
 cred=credentials.Certificate({
   "type": os.getenv("TYPE"),
   "project_id":os.getenv("PROJECT_ID"),
@@ -55,8 +24,7 @@ cred=credentials.Certificate({
   "universe_domain":os.getenv("UNIVERSE_DOMAIN")
 }
 )
-#cred = credentials.Certificate("jobscrapiee-firebase-adminsdk-1n722-bec08b779e.json")
-#cred = credentials.Certificate(os.getenv("GOOGLE_APPLICATION_CREDENTIALS"))
+
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 @app.route('/')
@@ -77,32 +45,6 @@ def login():
         else:
             message = 'Please enter correct email / password !'
     return render_template('Login.html', message=message)
-
-
-# @app.route('/register', methods =['GET', 'POST'])
-# def register():
-#     mesage = ''
-#     if request.method == 'POST' and 'name' in request.form and 'password' in request.form and 'email' in request.form :
-#         userName = request.form['name']
-#         password = request.form['password']
-#         email = request.form['email']
-#         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-#         cursor.execute('SELECT * FROM user WHERE email = % s', (email, ))
-#         account = cursor.fetchone()
-#         if account:
-#             mesage = 'Account already exists !'
-#         elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
-#             mesage = 'Invalid email address !'
-#         elif not userName or not password or not email:
-#             mesage = 'Please fill out the form !'
-#         else:
-#             cursor.execute('INSERT INTO user VALUES (% s, % s, % s)', (userName, email, password, ))
-#             mysql.connection.commit()
-#             return redirect(url_for('login'))
-#             mesage = 'You have successfully registered !'
-#     elif request.method == 'POST':
-#         mesage = 'Please fill out the form !'
-#     return render_template('Register.html', mesage = mesage)
 
 
 @app.route('/register', methods=['GET', 'POST'])
