@@ -13,10 +13,10 @@ app.secret_key='abcxyz'
 
 
 
-private_key = os.getenv("PRIVATE_KEY")
+# private_key = os.getenv("PRIVATE_KEY")
 
-if private_key is not None:
-    private_key = private_key.replace(r'\n', '\n')
+# if private_key is not None:
+#     private_key = private_key.replace(r'\n', '\n')
 
 # cred = credentials.Certificate({
 #     "type": "service_account",
