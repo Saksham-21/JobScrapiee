@@ -19,7 +19,7 @@ if private_key is not None:
     private_key = private_key.replace(r'\n', '\n')
 
 cred = credentials.Certificate({
-    "type": os.getenv("TYPE"),
+    "type": "service_account",
     "project_id": os.getenv("PROJECT_ID"),
     "private_key_id": os.getenv("PRIVATE_KEY_ID"),
     "private_key": private_key,
