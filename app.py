@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request,url_for,session,redirect,Response,send_file
-from dotenv import load_dotenv
+from dotenv import load_dotenv,dotenv_values
 import firebase_admin
 from firebase_admin import credentials, firestore
 import os
@@ -18,11 +18,14 @@ app.secret_key='abcxyz'
 # if private_key is not None:
 #     private_key = private_key.replace(r'\n', '\n')
 
+secrets=dotenv_values(".env")
+
 cred = credentials.Certificate({
     "type": "service_account",
     "project_id": os.getenv("PROJECT_ID"),
     "private_key_id": os.getenv("PRIVATE_KEY_ID"),
-    "private_key": os.getenv("PRIVATE_KEY").replace('\\n', '\n'),
+    # "private_key": os.getenv("PRIVATE_KEY"),
+    "private_key": secrets["PRIVATE_KEY"],
     "client_email": os.getenv("CLIENT_EMAIL"),
     "client_id": os.getenv("CLIENT_ID"),
     "auth_uri": os.getenv("AUTH_URI"),
