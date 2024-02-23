@@ -13,16 +13,16 @@ app.secret_key='abcxyz'
 
 
 
-private_key = os.getenv("PRIVATE_KEY")
+# private_key = os.getenv("PRIVATE_KEY")
 
-if private_key is not None:
-    private_key = private_key.replace(r'\n', '\n')
+# if private_key is not None:
+#     private_key = private_key.replace(r'\n', '\n')
 
 cred = credentials.Certificate({
     "type": "service_account",
     "project_id": os.getenv("PROJECT_ID"),
-    "private_key_id": os.getenv("PRIVATE_KEY_ID"),
-    "private_key": private_key,
+    "private_key_id": os.getenv("PRIVATE_KEY_ID").replace(r'\n', '\n'),
+    "private_key": os.getenv("PRIVATE_KEY"),
     "client_email": os.getenv("CLIENT_EMAIL"),
     "client_id": os.getenv("CLIENT_ID"),
     "auth_uri": os.getenv("AUTH_URI"),
