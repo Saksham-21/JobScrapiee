@@ -34,7 +34,7 @@ app.secret_key='abcxyz'
 
 
 
-cred=credentials.Certificate("firebase-key.json")
+cred=credentials.Certificate("/firebase-key.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 @app.route('/')
