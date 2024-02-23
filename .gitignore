@@ -1,4 +1,10 @@
-env
-.env
-__pycache__
 firebase-key.json
+
+__pycache__
+env
+
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
