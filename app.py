@@ -80,7 +80,7 @@ def register():
     return render_template('Register.html', message=message)
 
 
-global jobs=[]
+jobs=[]
 @app.route('/display_result',methods=['POST'])
 def display_result():
     global jobs
