@@ -5,7 +5,7 @@ from firebase_admin import credentials, firestore
 import os
 import re
 import csv
-from scrape import fetch_job_data,save_to_csv
+from scrape import fetch_job_data
 app = Flask(__name__)
 load_dotenv()
 
@@ -92,6 +92,15 @@ def display_result():
 
 @app.route('/download_csv')
 def download_csv():
+
+    def save_to_csv(job_data, filename='job_data.csv'):
+        with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+            fieldnames = ['Title', 'Company', 'Location', 'Salary', 'Time_ago', 'Link']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        
+            writer.writeheader()
+            for job in job_data:
+                writer.writerow(job)  
     save_to_csv(jobs)
     return send_file('job_data.csv', as_attachment=True)
 
