@@ -10,16 +10,6 @@ app = Flask(__name__)
 load_dotenv()
 
 app.secret_key='abcxyz'
-
-
-
-# private_key = os.getenv("PRIVATE_KEY")
-
-# if private_key is not None:
-#     private_key = private_key.replace(r'\n', '\n')
-
-# secrets=dotenv_values(".env")
-
 cred = credentials.Certificate({
     "type": "service_account",
     "project_id": os.getenv("PROJECT_ID"),
@@ -37,7 +27,6 @@ cred = credentials.Certificate({
 
 
 
-#cred=credentials.Certificate("/firebase-key.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 @app.route('/')
@@ -90,7 +79,7 @@ def register():
     return render_template('Register.html', message=message)
 
 
-
+jobs=[]
 @app.route('/display_result',methods=['POST'])
 def display_result():
     global jobs
