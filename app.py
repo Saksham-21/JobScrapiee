@@ -6,6 +6,7 @@ import os
 import re
 import csv
 from scrape import fetch_job_data
+from io import StringIO
 app = Flask(__name__)
 load_dotenv()
 
@@ -90,19 +91,38 @@ def display_result():
 
 
 
-@app.route('/download_csv')
-def download_csv():
+#@app.route('/download_csv')
+# def download_csv():
 
-    def save_to_csv(job_data, filename='job_data.csv'):
-        with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
-            fieldnames = ['Title', 'Company', 'Location', 'Salary', 'Time_ago', 'Link']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+#     def save_to_csv(job_data, filename='job_data.csv'):
+#         with open(filename, 'w', newline='', encoding='utf-8') as csvfile:
+#             fieldnames = ['Title', 'Company', 'Location', 'Salary', 'Time_ago', 'Link']
+#             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         
-            writer.writeheader()
-            for job in job_data:
-                writer.writerow(job)  
-    save_to_csv(jobs)
-    return send_file('job_data.csv', as_attachment=True)
+#             writer.writeheader()
+#             for job in job_data:
+#                 writer.writerow(job)  
+#     save_to_csv(jobs)
+#     return send_file('job_data.csv', as_attachment=True)
+
+
+
+def convert_to_csv(json_data):
+    csv_buffer = StringIO()
+    writer = csv.DictWriter(csv_buffer, fieldnames=json_data[0].keys())
+    writer.writeheader()
+    writer.writerows(json_data)
+    return csv_buffer.getvalue()
+
+@app.route('/download-csv')
+def download_csv():
+    csv_data = convert_to_csv(jobs)
+    
+    return Response(
+        csv_data,
+        mimetype="text/csv",
+        headers={"Content-disposition":
+                 "attachment; filename=job_data.csv"})
 
 
 
